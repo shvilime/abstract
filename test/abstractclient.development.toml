@@ -1,0 +1,83 @@
+[default]
+
+[development]
+logging = "test/logging.json"
+local_db_conf_path = "test/local_db.conf"
+
+[development.cron]
+user="shvili"
+variables={rnd_price=1, rnd_value=3}
+     [[development.cron.tasks]]
+      active=true
+      branch_type=["RC", "GM", "MD"]
+      time=["*/5", "rnd(9,14)", "*", "*", "*"]
+      command="/bin/articleattributeexport.sh run --method price"
+      comment="Запуск основного метода"
+
+     [[development.cron.tasks]]
+      active=false
+      branch_type=["GM"]
+      time=["var(rnd_price)-59/10", "23", "*", "*", "*"]
+      command="/bin/articleattributeexport.sh run --method dumped"
+      comment="Обработка дампов"
+
+[development.transport.headquarter]
+default_headers = {X-Service-Version="1", Content-type="application/json"}
+     [[development.transport.headquarter.sessions]]
+      alias = "primary"
+      host = "https://httpbin.org"
+      port = 443
+      username = "user"
+      password = ""
+      timeout = 30
+      verify = false
+     [[development.transport.headquarter.sessions]]
+      alias = "secondary"
+      host = "https://httpbin.org"
+      port = 443
+      username = "user"
+      password = ""
+      timeout = 30
+      verify = false
+      [[development.transport.headquarter.scheme.paths]]
+       alias = "get"
+       url = "get"
+       method = "GET"
+            [development.transport.headquarter.scheme.paths.headers]
+             Content-type="application/json"
+      [[development.transport.headquarter.scheme.paths]]
+       alias = "check"
+       url = "get"
+       method = "GET"
+            [development.transport.headquarter.scheme.paths.headers]
+             Content-type="application/json"
+
+[development.transport.onlinemm]
+default_headers = {}
+     [[development.transport.onlinemm.sessions]]
+      alias = "primary"
+      host = "https://api.onlinemm.ru"
+      port = 8083
+      username = "shvili"
+      password = "pass"
+      auth_type = "Basic"
+      timeout = 30
+      verify = false
+     [[development.transport.onlinemm.scheme.paths]]
+      alias = "info"
+      url = "objectinfo/all/$(whscode)"
+      method = "GET"
+      headers = {}
+
+[development.database.firebird]
+    [development.database.firebird.connection]
+     module = "fdb"
+     function = "connect"
+    [development.database.firebird.pool]
+     pool_size = 50
+     max_overflow = 20
+     timeout = 30
+     use_lifo = true
+    [development.database.firebird.credentials]
+     charset = "WIN1251"
+     isolation_level = [15, 7, 17]

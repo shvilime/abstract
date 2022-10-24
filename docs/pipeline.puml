@@ -1,0 +1,44 @@
+@startuml
+
+package config.py <<cloud>> {
+    class DefaultConfig {
+      db_cls: AbstractFactory
+      transport_cls: AbstractFactory
+      repo_cls: AbstractRepository
+      database()
+      transport()
+      repository()
+    }
+}
+
+package abstractpipeline.py <<cloud>> {
+
+    abstract class Repository {
+    }
+
+    abstract class AbstractFactory {
+    }
+
+}
+
+package transports.py <<cloud>>{
+    class HTTPFactory {
+        execute()
+    }
+}
+
+package database.py <<cloud>>{
+    class DAO {
+        aquire()
+    }
+}
+
+Main-r->DefaultConfig : runner >
+
+DefaultConfig-d->Repository
+Repository<-r-AbstractFactory
+
+DAO -u-> AbstractFactory : default >
+HTTPFactory -u-> AbstractFactory : default >
+
+@enduml
