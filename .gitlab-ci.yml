@@ -1,0 +1,11 @@
+include:
+  - project: 'infrastructure/ci-templates'
+    ref: 'main'
+    file: '.gradle_release.yml'
+  - project: 'infrastructure/ci-templates'
+    ref: 'main'
+    file: '.create_jira_task_comment.yml'
+
+stages:
+  - release
+  - jira
