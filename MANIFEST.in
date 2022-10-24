@@ -1,0 +1,10 @@
+include requirements.txt
+include gradle.properties
+include test/*.ini
+include test/*.json
+recursive-include docs *
+prune gradle
+exclude *.gradle
+exclude gradlew
+exclude .gitignore
+global-exclude *.py[co]
