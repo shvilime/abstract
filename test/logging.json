@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "standard": {
+      "format": "%(asctime)s %(levelname)-5s %(name)-15s | %(message)s",
+      "datefmt": ""
+    },
+    "brief": {
+      "format": "%(message)s"
+    },
+    "extended": {
+      "format": "%(asctime)s [p%(process)d] %(levelname)s [%(filename)s:%(lineno)d] %(message)s",
+      "datefmt": ""
+    }
+  },
+  "handlers": {
+    "default": {
+      "class": "logging.StreamHandler",
+      "formatter": "brief",
+      "level": "INFO"
+    },
+    "file": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "filename": "/tmp/log/abstractclient/abstractclient.log",
+      "formatter": "extended",
+      "maxBytes": 500000,
+      "backupCount": 20,
+      "level": "DEBUG",
+      "encoding": "utf8"
+    }
+  },
+  "root": {
+    "level": "DEBUG",
+    "handlers": [
+      "default",
+      "file"
+    ]
+  },
+  "loggers": {
+    "requests": {
+      "handlers": [
+        "default",
+        "file"
+      ],
+      "level": "ERROR",
+      "propagate": false
+    },
+    "urllib3": {
+      "handlers": [
+        "default",
+        "file"
+      ],
+      "level": "ERROR",
+      "propagate": false
+    },
+    "abstractclient": {
+      "handlers": [
+        "default",
+        "file"
+      ],
+      "level": "DEBUG",
+      "propagate": false
+    }
+  }
+}

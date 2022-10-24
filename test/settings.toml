@@ -1,0 +1,11 @@
+[default]
+application = "AbstractClient"
+pid_file_path = "/tmp"
+local_db_conf_path = "/etc/local_db.conf"
+auto_create_directory = ['/tmp/log/abstractclient', '/tmp/db/abstractclient']
+
+[development]
+dynaconf_include = ["*.development.*"]
+
+[production]
+dynaconf_include = ["*.production.*"]

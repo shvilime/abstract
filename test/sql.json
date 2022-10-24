@@ -1,0 +1,26 @@
+{
+  "test_db_connection_with_transaction": {
+    "query1": {
+      "sql": "SELECT * FROM CORRTYPE",
+      "field": "ID_CORRTYPE",
+      "result": 51
+    },
+    "query2": {
+      "sql": "SELECT * FROM CURRENCY",
+      "field": "ROUND",
+      "result": 2
+    },
+    "query3": {
+      "sql": "SELECT * FROM DIVISION",
+      "field": "ID_DIV",
+      "result": 1
+    }
+  },
+  "test_db_connection_non_transaction": {
+    "query1": {
+      "sql": "SELECT * FROM CURRENCY",
+      "field": "SYMBOL",
+      "result": "RUB"
+    }
+  }
+}
